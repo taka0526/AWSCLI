@@ -9,10 +9,14 @@ RUN yum install -y python37
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py --user
 
-# create local bin directory
 RUN mkdir -p /root/.local/bin
 ENV PATH $PATH:/root/.local/bin
 
 RUN pip install awsebcli --upgrade --user
+
+COPY .aws/ /root/.aws/
+
+RUN chmod 700 /root/.aws
+RUN chmod 600 /root/.aws/*
 
 WORKDIR /root
